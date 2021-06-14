@@ -19,9 +19,7 @@
 export default {
   name: 'App',
   data () {
-    return {
-      visible: false
-    }
+    // 存放数据
   },
   components: {}
 }
