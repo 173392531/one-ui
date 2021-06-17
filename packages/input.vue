@@ -52,6 +52,7 @@ export default {
   },
   watch: {},
   computed: {
+    // 判断是否需要清空图标
     showSuffix () {
       return this.clearable || this.showPassword
     }
@@ -63,6 +64,7 @@ export default {
     }
   },
   methods: {
+    // 校验input的方法
     handleInput (e) {
       this.$emit('input', e.target.value)
     },

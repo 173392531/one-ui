@@ -30,12 +30,7 @@ export default {
     }
   },
   mounted () {
-    // 修改开关颜色
-    if (this.activeColor || this.inactiveColor) {
-      var color = !this.value ? this.activeColor : this.inactiveColor
-      this.$refs.core.style.borderColor = color
-      this.$refs.core.style.backgroundColor = color
-    }
+    this.setColor()
     // 控制checkbox的值,input值同步value值
     this.$refs.input.checked = this.value
   },
@@ -57,6 +52,15 @@ export default {
       this.$emit('input', !this.value)
       // 控制checkbox的值,input值同步value值
       this.$refs.input.checked = this.value
+      this.setColor()
+    },
+    setColor () {
+      // 修改开关颜色
+      if (this.activeColor || this.inactiveColor) {
+        var color = !this.value ? this.activeColor : this.inactiveColor
+        this.$refs.core.style.borderColor = color
+        this.$refs.core.style.backgroundColor = color
+      }
     }
   }
 }

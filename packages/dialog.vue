@@ -120,6 +120,7 @@ export default {
       padding: 10px 20px 20px;
       text-align: right;
       box-sizing: border-box;
+      // 深度选择器，在scoped情况下也能修改组件库的内容
       ::v-deep .one-button:first-child{
         margin-right: 20px;
       }
