@@ -56,6 +56,12 @@ export default {
       <one-switch v-model="active" active-color="yellowgreen" inactive-color="pink"></one-switch>
       <one-switch></one-switch>
     </div>
+
+    <div class="alert">
+      <one-alert title="这是标题" type="success" show-icon center></one-alert>
+      <one-alert title="这是二标题" close-text="知道了" show-icon></one-alert>
+      <one-alert effect="dark" title="这是三标题" type="success" description="这是一句绕口令：黑灰化肥会挥发发灰黑化肥挥发；灰黑化肥会挥发发黑灰化肥发挥。 黑灰化肥会挥发发灰黑化肥黑灰挥发化为灰……"></one-alert>
+    </div>
   </div>
 </template>
 

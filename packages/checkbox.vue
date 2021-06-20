@@ -50,6 +50,7 @@ export default {
       }
     },
     isGroup () {
+      // 转布尔值
       return !!this.CheckboxGroup
     },
     isChecked () {
