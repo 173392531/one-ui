@@ -92,7 +92,7 @@ export default {
   }
 }
 </script>
-<style lang=scss>
+<style lang='scss'>
 @import "./style-scss/mixins";
 @import "./style-scss/var";
 @import "./style-scss/icon.scss";

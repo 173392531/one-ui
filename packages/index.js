@@ -12,8 +12,13 @@ import CheckboxGroup from './checkbox-group'
 import Form from './form'
 import FormItem from './form-item'
 import Alert from './alert'
+import Avatar from './avatar.vue'
+import BackTop from './backtop.vue'
+import Badge from './badge.vue'
+import Breadcrumb from './breadcrumb.vue'
+import BreadcrumbItem from './breadcrumb-item.vue'
+import Card from './card.vue'
 import './fonts/iconfont.css'
-
 const components = [
   Button,
   Dialog,
@@ -25,7 +30,13 @@ const components = [
   CheckboxGroup,
   Form,
   FormItem,
-  Alert
+  Alert,
+  Avatar,
+  BackTop,
+  Badge,
+  Breadcrumb,
+  BreadcrumbItem,
+  Card
 ]
 // 定义install方法
 const install = function (Vue) {
