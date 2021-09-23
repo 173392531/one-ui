@@ -21,6 +21,14 @@ export default {
     },
     fn () {
       this.visible = true
+    },
+    topmsg () {
+      this.$message({
+        text: '哈哈哈哈哈哈真可笑',
+        type: 'error',
+        isCenter: true,
+        canClose: true
+      })
     }
   }
 }
@@ -166,6 +174,8 @@ export default {
     <p>sss</p>
     <p>sss</p>
     <p>sss</p>
+
+    <one-button @click="topmsg">topmsg</one-button>
   </div>
 </template>
 

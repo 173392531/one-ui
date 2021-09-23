@@ -19,6 +19,7 @@ import Breadcrumb from './breadcrumb.vue'
 import BreadcrumbItem from './breadcrumb-item.vue'
 import Card from './card.vue'
 import './fonts/iconfont.css'
+import Message from './topMsg/index'
 const components = [
   Button,
   Dialog,
@@ -36,7 +37,8 @@ const components = [
   Badge,
   Breadcrumb,
   BreadcrumbItem,
-  Card
+  Card,
+  Message
 ]
 // 定义install方法
 const install = function (Vue) {
