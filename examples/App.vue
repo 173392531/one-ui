@@ -8,7 +8,35 @@ export default {
     return {
       visible: false,
       input: 'shq',
-      active: false
+      active: false,
+      rateValue: null,
+      rateText: ['一星', '两星', '三星', '四星', '五星'],
+      subject: [
+        {
+          value: '1',
+          text: '111'
+        },
+        {
+          value: '2',
+          text: '222'
+        },
+        {
+          value: '3',
+          text: '333'
+        },
+        {
+          value: '4',
+          text: '444'
+        }
+      ],
+      tags: [
+        { name: '标签一', type: '' },
+        { name: '标签二', type: 'success' },
+        { name: '标签三', type: 'info' },
+        { name: '标签四', type: 'warning' },
+        { name: '标签五', type: 'danger' }
+      ],
+      canclose: true
     }
   },
   components: {
@@ -29,6 +57,9 @@ export default {
         isCenter: true,
         canClose: true
       })
+    },
+    handleClose (tag) {
+      this.tags.splice(this.tags.indexOf(tag), 1)
     }
   }
 }
@@ -176,6 +207,20 @@ export default {
     <p>sss</p>
 
     <one-button @click="topmsg">topmsg</one-button>
+    <one-rate
+      v-model="rateValue"
+      show-text
+      :texts="rateText">
+    </one-rate>
+    <one-select :subject="subject"></one-select>
+    <one-tag
+      v-for="tag in tags"
+      :key="tag.name"
+      closable
+      :type="tag.type"
+       @close="handleClose(tag)">
+      {{tag.name}}
+    </one-tag>
   </div>
 </template>
 

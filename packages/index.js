@@ -20,6 +20,9 @@ import BreadcrumbItem from './breadcrumb-item.vue'
 import Card from './card.vue'
 import './fonts/iconfont.css'
 import Message from './topMsg/index'
+import Rate from './rate/index'
+import Select from './Select.vue'
+import Tag from './tag/index'
 const components = [
   Button,
   Dialog,
@@ -38,7 +41,10 @@ const components = [
   Breadcrumb,
   BreadcrumbItem,
   Card,
-  Message
+  Message,
+  Rate,
+  Select,
+  Tag
 ]
 // 定义install方法
 const install = function (Vue) {
