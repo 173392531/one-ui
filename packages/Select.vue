@@ -49,12 +49,14 @@ export default {
   },
   methods: {
     move (event) {
+      console.log('!event', event)
       for (var item of this.subjectList) {
         item.classList.remove('hover')
       }
       event.currentTarget.classList.add('hover')
     },
     out (event) {
+      console.log('!event2', event)
       event.currentTarget.classList.remove('hover')
     },
     triggerOption () {

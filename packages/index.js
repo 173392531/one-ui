@@ -23,6 +23,7 @@ import Message from './topMsg/index'
 import Rate from './rate/index'
 import Select from './Select.vue'
 import Tag from './tag/index'
+import Tree from './tree/tree.vue'
 const components = [
   Button,
   Dialog,
@@ -44,7 +45,8 @@ const components = [
   Message,
   Rate,
   Select,
-  Tag
+  Tag,
+  Tree
 ]
 // 定义install方法
 const install = function (Vue) {

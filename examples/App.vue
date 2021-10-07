@@ -36,7 +36,42 @@ export default {
         { name: '标签四', type: 'warning' },
         { name: '标签五', type: 'danger' }
       ],
-      canclose: true
+      canclose: true,
+      treeData: [{
+        label: '一级 1',
+        children: [{
+          label: '二级 1-1',
+          children: [{
+            label: '三级 1-1-1'
+          }]
+        }]
+      }, {
+        label: '一级 2',
+        children: [{
+          label: '二级 2-1',
+          children: [{
+            label: '三级 2-1-1'
+          }]
+        }, {
+          label: '二级 2-2',
+          children: [{
+            label: '三级 2-2-1'
+          }]
+        }]
+      }, {
+        label: '一级 3',
+        children: [{
+          label: '二级 3-1',
+          children: [{
+            label: '三级 3-1-1'
+          }]
+        }, {
+          label: '二级 3-2',
+          children: [{
+            label: '三级 3-2-1'
+          }]
+        }]
+      }]
     }
   },
   components: {
@@ -221,6 +256,8 @@ export default {
        @close="handleClose(tag)">
       {{tag.name}}
     </one-tag>
+    <rk-tree :data="treeData" node-key="tree_rk">
+    </rk-tree>
   </div>
 </template>
 
