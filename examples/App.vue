@@ -258,6 +258,10 @@ export default {
     </one-tag>
     <rk-tree :data="treeData" node-key="tree_rk">
     </rk-tree>
+    <div class="component-wrapper">
+      <okr-tree :data="treeData" direction="horizontal" show-collapsable>
+      </okr-tree>
+    </div>
   </div>
 </template>
 
@@ -291,5 +295,9 @@ export default {
   display: flex;
   justify-content: space-between;
   margin: 20px;
+}
+.component-wrapper {
+  overflow: auto;
+  padding-left: 40px;
 }
 </style>

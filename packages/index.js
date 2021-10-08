@@ -24,6 +24,7 @@ import Rate from './rate/index'
 import Select from './Select.vue'
 import Tag from './tag/index'
 import Tree from './tree/tree.vue'
+import OkrTree from './tree/OkrTree.vue'
 const components = [
   Button,
   Dialog,
@@ -46,7 +47,8 @@ const components = [
   Rate,
   Select,
   Tag,
-  Tree
+  Tree,
+  OkrTree
 ]
 // 定义install方法
 const install = function (Vue) {
