@@ -6,7 +6,6 @@
     :class="{
       collapsed: !node.leftExpanded || !node.expanded,
       'is-leaf': isLeaf,
-      'is-current': node.isCurrent,
       'is-left-child-node': isLeftChildNode,
       'is-not-child': node.level === 1 && node.childNodes.length <= 0 && leftChildNodes.length <= 0,
       'only-both-tree-node': node.level === 1 && tree.store.onlyBothTree
@@ -60,6 +59,7 @@
       <div
         class="org-chart-node-label-inner"
         @click="handleNodeClick"
+        @dblclick="editText"
         :class="computeLabelClass"
         :style="computeLabelStyle"
       >
@@ -334,6 +334,7 @@ export default {
     handleNodeClick () {
       const store = this.tree.store
       store.setCurrentNode(this.node)
+      this.tree.currentNode = this
       this.tree.$emit('node-click', this.node.data, this.node, this)
     },
     handleBtnClick (isLeft) {
@@ -375,6 +376,9 @@ export default {
         this.node,
         this
       )
+    },
+    editText () {
+      console.log('!edit')
     }
   }
 }

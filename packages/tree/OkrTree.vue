@@ -137,7 +137,9 @@ export default {
     return {
       okrEventBus: new Vue(),
       store: null,
-      root: null
+      root: null,
+      id: 1000,
+      currentNode: null
     }
   },
   created () {
@@ -161,6 +163,9 @@ export default {
     })
     this.root = this.store.root
   },
+  mounted () {
+    window.addEventListener('keydown', $event => this.handleKeydown($event))
+  },
   watch: {
     data (newVal) {
       this.store.setData(newVal)
@@ -171,6 +176,12 @@ export default {
     }
   },
   methods: {
+    handleKeydown (ev) {
+      if (ev.keyCode === 39) {
+        const newChild = { id: this.id++, label: 'newData', children: [] }
+        this.append(newChild, this.currentNode.node)
+      }
+    },
     filter (value) {
       if (!this.filterNodeMethod) { throw new Error('[Tree] filterNodeMethod is required when filter') }
       this.store.filter(value)
@@ -236,7 +247,9 @@ export default {
   width: 100%;
   text-align: center;
 }
-
+.is-current {
+  border: 1px solid rgb(31, 29, 161);
+}
 .vertical .org-chart-node-children {
   position: relative;
   padding-top: 20px;
