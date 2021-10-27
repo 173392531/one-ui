@@ -1,6 +1,6 @@
 <script>
 export default {
-  data () {
+  data() {
     return {
       message: '', // 消息文字
       duration: null, // 显示时长，毫秒
@@ -14,96 +14,120 @@ export default {
       onClose: null,
       center: null,
       offset: null,
+      IndefiniteWidth: false,
+      UseHTMLString: false,
+      canCheck: false,
       ICON: {
         error: require('./img/error.svg'),
         info: require('./img/info.svg'),
         warning: require('./img/warning.svg'),
-        success: require('./img/success.svg')
-      }
-    }
+        success: require('./img/success.svg'),
+      },
+      isEllipsisForDom: false,
+    };
   },
   computed: {
-    typeClass () {
-      return this.type ? `tos-icon-${this.type}` : ''
+    typeClass() {
+      return this.type ? `tos-icon-${this.type}` : '';
     },
-    positionStyle () {
+    positionStyle() {
       return {
-        top: `${this.verticalOffset}px`
-      }
+        top: `${this.verticalOffset}px`,
+        paddingRight: this.canCheck && this.IndefiniteWidth ? '120px' : 0,
+      };
     },
-    iconType () {
-      const type = this.type
-      const res = this.ICON[type]
-      return res
-    }
+    iconType() {
+      let type = this.type;
+      let res = this.ICON[type];
+      return res;
+    },
   },
   watch: {
-    closed (newVal) {
+    closed(newVal) {
       if (newVal) {
-        this.visible = false
+        this.visible = false;
       }
     },
-    visible (val) {
+    visible(val) {
       if (val) {
-        this.calculationLocation()
+        this.calculationLocation();
       }
     },
-    verticalOffset (val) {
-      console.log('!height', val)
-    }
+    verticalOffset(val) {
+      console.log('!height', val);
+    },
   },
 
-  mounted () {
-    this.startTimer()
-    document.addEventListener('keydown', this.keydown)
+  mounted() {
+    this.startTimer();
+    document.addEventListener('keydown', this.keydown);
   },
-  beforeDestroy () {
-    document.removeEventListener('keydown', this.keydown)
+  beforeDestroy() {
+    document.removeEventListener('keydown', this.keydown);
   },
   methods: {
-    destroyElement () {
-      this.$destroy()
-      this.$el.parentNode.removeChild(this.$el)
+    destroyElement() {
+      this.$destroy();
+      this.$el.parentNode.removeChild(this.$el);
     },
-    keydown (e) {
+    keydown(e) {
       if (e.keyCode === 27) {
         // esc关闭消息
         if (!this.closed) {
-          this.closeTopMsg()
+          this.closeTopMsg();
         }
       }
     },
-    startTimer () {
+    startTimer() {
       if (this.duration > 0) {
         this.timer = setTimeout(() => {
           if (!this.closed) {
-            this.closeTopMsg()
+            this.closeTopMsg();
           }
-        }, this.duration)
+        }, this.duration);
       }
     },
-    clearTimer () {
-      clearTimeout(this.timer)
+    clearTimer() {
+      clearTimeout(this.timer);
     },
-    closeTopMsg () {
+    closeTopMsg() {
       // debugger
-      this.closed = true
+      this.closed = true;
       if (typeof this.onClose === 'function') {
-        this.onClose(this)
+        this.onClose(this);
       }
     },
-    calculationLocation () {
+    calculationLocation() {
       this.$nextTick(() => {
-        const toasts = document.querySelectorAll('.toast')
-        const len = toasts.length
-        const toast = toasts[len - 1]
-        toast.style.width = this.width + 'px'
-        toast.style.left = (document.body.clientWidth - Number(this.width)) / 2 + 'px'
-        console.log('!tosat', toast.style.width, document.body.clientWidth)
-      })
-    }
-  }
-}
+        const toasts = document.querySelectorAll('.toast');
+        const len = toasts.length;
+        const toast = toasts[len - 1];
+        if (this.UseHTMLString) {
+          const innerDom = this.$refs.innerDom;
+          const innerDomWidth = innerDom.getBoundingClientRect().width;
+          if (innerDomWidth > 930) {
+            console.log('!变true');
+            this.isEllipsisForDom = true;
+          }
+          console.log('!innerDom', innerDom.getBoundingClientRect().width);
+        }
+        toast.style.width = this.IndefiniteWidth ? toast.getBoundingClientRect().width + 'px' : this.width + 'px';
+        let width = Number(toast.style.width.match(/\d+/g)[0]);
+        if (width > 1096) {
+          width = 1096;
+          toast.style.width = '1096px';
+        }
+        console.log('!toast.style.width', width, toast.style.width);
+
+        toast.style.left = (document.body.clientWidth - width) / 2 + 'px';
+        console.log('!tosat', toast.style.width, document.body.clientWidth);
+      });
+    },
+    checkFn() {
+      this.checkMethod && this.checkMethod();
+    },
+  },
+};
 </script>
 
 <template>
@@ -115,7 +139,9 @@ export default {
       @mouseenter="clearTimer"
       @mouseleave="startTimer"
     >
-      <img :src="iconType" alt="" /> <span class="inner_text">{{ message }}</span>
+      <img :src="iconType" alt="" /> <span class="inner_text" v-if="!UseHTMLString">{{ message }}</span>
+      <span v-else :class="{ inner_text: true, is_ellipsis: isEllipsisForDom }" v-html="message" ref="innerDom"></span>
+      <span class="check-span" v-if="canCheck" @click="checkFn">查看</span>
       <img src="./img/close.svg" alt="" class="close_icon" v-show="isClose" @click="closeTopMsg" />
     </div>
   </transition>
@@ -153,6 +179,26 @@ export default {
     text-align: center;
     color: rgba(31, 31, 31, 1);
     margin-left: 10px;
+    &.is_ellipsis {
+      width: 930px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+  .check-span {
+    font-family: PingFang SC;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    color: #2878ff;
+    cursor: pointer;
+    position: absolute;
+    right: 72px;
+    &:hover {
+      color: #225bd6;
+    }
   }
 }
 .msg-center {
